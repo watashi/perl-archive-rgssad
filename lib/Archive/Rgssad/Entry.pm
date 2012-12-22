@@ -35,18 +35,59 @@ if you don't export anything, such as for a purely object-oriented module.
 
 =head1 SUBROUTINES/METHODS
 
-=head2 function1
+=head2 new
 
 =cut
 
-sub function1 {
+sub new {
+  my $class = shift;
+  my $self = {
+    path => $_[0] // '',
+    data => $_[1] // ''
+  };
+  bless $self, $class;
+  return $self;
 }
 
-=head2 function2
+=head2 path
 
 =cut
 
-sub function2 {
+sub path {
+  my $self = shift;
+  $self->{path} = shift if @_;
+  return $self->{path};
+}
+
+=head2 data
+
+=cut
+
+sub data {
+  my $self = shift;
+  $self->{data} = shift if @_;
+  return $self->{data};
+}
+
+=head2 pack
+
+=cut
+
+sub pack {
+  my $self = shift;
+  pack '(V/a)*', $self->path, $self->data;
+}
+
+=head2 unpack
+
+=cut
+
+sub unpack {
+  my $self = shift;
+  my ($path, $data) = unpack '(V/a)*', shift;
+  $self->path($path);
+  $self->data($data);
+  return $self;
 }
 
 =head1 AUTHOR
