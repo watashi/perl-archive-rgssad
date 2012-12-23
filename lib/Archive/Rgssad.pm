@@ -8,7 +8,7 @@ use Archive::Rgssad::Entry;
 
 =head1 NAME
 
-Archive::Rgssad - The great new Archive::Rgssad!
+Archive::Rgssad - Provide an interface to RGSS (ruby game scripting system) archive files.
 
 =head1 VERSION
 
