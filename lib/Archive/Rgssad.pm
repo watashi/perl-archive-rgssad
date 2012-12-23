@@ -118,18 +118,18 @@ sub save {
 
   my $key = $self->{seed};
 
-  $fh->write($self->{magic});
+  $fh->write($self->{magic}, 8);
   for my $entry (@{$self->{entries}}) {
     my ($buf, $len);
 
     $len = length $entry->path;
-    $fh->write(pack('V', $len ^ _next($key)));
+    $fh->write(pack('V', $len ^ _next($key)), 4);
 
     $buf = $entry->path ^ pack('C*', map { $_ & 0xFF } _next($key, $len));
     $fh->write($buf, $len);
 
     $len = length $entry->data;
-    $fh->write(pack('V', $len ^ _next($key)));
+    $fh->write(pack('V', $len ^ _next($key)), 4);
 
     $buf = $entry->data ^ pack('V*', _next($_ = $key, ($len + 3) / 4));
     $fh->write($buf, $len);
