@@ -1,3 +1,5 @@
+use strict;
+use warnings;
 use Archive::Rgssad::Entry;
 use Test::More tests => 7;
 
