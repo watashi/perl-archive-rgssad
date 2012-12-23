@@ -1,9 +1,10 @@
 #!perl -T
-
 use 5.006;
 use strict;
-use warnings;
-use Test::More tests => 4;
+use warnings FATAL => 'all';
+use Test::More;
+
+plan tests => 6;
 
 sub not_in_file_ok {
     my ($filename, %regex) = @_;
@@ -50,7 +51,9 @@ TODO: {
   );
 
   module_boilerplate_ok('lib/Archive/Rgssad.pm');
+  module_boilerplate_ok('lib/Archive/Rgss3a.pm');
   module_boilerplate_ok('lib/Archive/Rgssad/Entry.pm');
+  module_boilerplate_ok('lib/Archive/Rgssad/Keygen.pm');
 
 
 }

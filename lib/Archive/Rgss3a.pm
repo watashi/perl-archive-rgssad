@@ -1,4 +1,4 @@
-package Archive::Rgssad::Entry;
+package Archive::Rgss3a;
 
 use 5.006;
 use strict;
@@ -6,7 +6,7 @@ use warnings FATAL => 'all';
 
 =head1 NAME
 
-Archive::Rgssad::Entry - The great new Archive::Rgssad::Entry!
+Archive::Rgss3a - Provide an interface to rgss3a archive files.
 
 =head1 VERSION
 
@@ -23,9 +23,9 @@ Quick summary of what the module does.
 
 Perhaps a little code snippet.
 
-    use Archive::Rgssad::Entry;
+    use Archive::Rgss3a;
 
-    my $foo = Archive::Rgssad::Entry->new();
+    my $foo = Archive::Rgss3a->new();
     ...
 
 =head1 EXPORT
@@ -35,59 +35,18 @@ if you don't export anything, such as for a purely object-oriented module.
 
 =head1 SUBROUTINES/METHODS
 
-=head2 new
+=head2 function1
 
 =cut
 
-sub new {
-  my $class = shift;
-  my $self = {
-    path => $_[0] // '',
-    data => $_[1] // ''
-  };
-  bless $self, $class;
-  return $self;
+sub function1 {
 }
 
-=head2 path
+=head2 function2
 
 =cut
 
-sub path {
-  my $self = shift;
-  $self->{path} = shift if @_;
-  return $self->{path};
-}
-
-=head2 data
-
-=cut
-
-sub data {
-  my $self = shift;
-  $self->{data} = shift if @_;
-  return $self->{data};
-}
-
-=head2 pack
-
-=cut
-
-sub pack {
-  my $self = shift;
-  pack '(V/a)*', $self->path, $self->data;
-}
-
-=head2 unpack
-
-=cut
-
-sub unpack {
-  my $self = shift;
-  my ($path, $data) = unpack '(V/a)*', shift;
-  $self->path($path);
-  $self->data($data);
-  return $self;
+sub function2 {
 }
 
 =head1 AUTHOR
@@ -107,7 +66,7 @@ automatically be notified of progress on your bug as I make changes.
 
 You can find documentation for this module with the perldoc command.
 
-    perldoc Archive::Rgssad::Entry
+    perldoc Archive::Rgss3a
 
 
 You can also look for information at:
@@ -149,4 +108,4 @@ See L<http://dev.perl.org/licenses/> for more information.
 
 =cut
 
-1; # End of Archive::Rgssad::Entry
+1; # End of Archive::Rgss3a

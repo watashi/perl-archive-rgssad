@@ -2,7 +2,7 @@ package Archive::Rgssad;
 
 use 5.006;
 use strict;
-use warnings;
+use warnings FATAL => 'all';
 
 use Archive::Rgssad::Entry;
 
@@ -243,7 +243,7 @@ This program is free software; you can redistribute it and/or modify it
 under the terms of either: the GNU General Public License as published
 by the Free Software Foundation; or the Artistic License.
 
-See http://dev.perl.org/licenses/ for more information.
+See L<http://dev.perl.org/licenses/> for more information.
 
 
 =cut

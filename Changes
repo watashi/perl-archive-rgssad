@@ -1,5 +1,7 @@
 Revision history for Archive-Rgssad
 
-0.01    Date/time
+0.01    Sun Dec 23 17:08:38 2012 +0800
         First version, released on an unsuspecting world.
 
+0.1     Date/time
+        Add rgss3a support.
