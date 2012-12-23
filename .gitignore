@@ -12,6 +12,7 @@ Makefile.old
 MANIFEST.bak
 MANIFEST.SKIP.bak
 META.yml
+META.json
 MYMETA.yml
 MYMETA.json
 nytprof.out

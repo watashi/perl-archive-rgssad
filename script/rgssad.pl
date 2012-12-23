@@ -10,7 +10,6 @@ use Getopt::Long;
 my $help = 0;
 my $list = 0;
 my $dest = '.';
-my $file = undef;
 
 my $result = GetOptions(
   'help'   => \$help,
@@ -29,12 +28,12 @@ Extract files from rgssad or rgss2a archive
 USAGE
 }
 
-if (!$result) {
-  usage;
-  exit 1;
-} elsif ($help) {
+if ($help) {
   usage;
   exit 0;
+} elsif (!$result || !defined($file)) {
+  usage;
+  exit 1;
 } elsif (! -e $file) {
   print STDERR "File '$file' doesn't exist.\n";
   exit 1;
