@@ -8,6 +8,7 @@ my $builder = Module::Build->new(
     license             => 'perl',
     dist_author         => q{Zejun Wu <watashi@watashi.ws>},
     dist_version_from   => 'lib/Archive/Rgssad.pm',
+    script_files        => qw{script/rgssad.pl},
     build_requires => {
         'Test::More' => 0,
     },

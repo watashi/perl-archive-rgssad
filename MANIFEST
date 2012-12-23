@@ -6,6 +6,7 @@ lib/Archive/Rgssad/Entry.pm
 MANIFEST			This list of files
 README
 README.md
+script/rgssad.pl
 t/00-load.t
 t/boilerplate.t
 t/Entry.t
