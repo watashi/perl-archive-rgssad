@@ -13,3 +13,6 @@ t/manifest.t
 t/pod-coverage.t
 t/pod.t
 t/Rgssad.t
+t/sample/Data/Scripts.rvdata
+t/sample/Dummy
+t/sample/Graphics/System/1x1.png

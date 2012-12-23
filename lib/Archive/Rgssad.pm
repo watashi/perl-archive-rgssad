@@ -119,7 +119,7 @@ sub save {
   my $key = $self->{seed};
 
   $fh->write($self->{magic}, 8);
-  for my $entry (@{$self->{entries}}) {
+  for my $entry ($self->entries) {
     my ($buf, $len);
 
     $len = length $entry->path;
@@ -136,6 +136,57 @@ sub save {
   }
 
   $fh->close;
+}
+
+=head2 entries
+
+=cut
+
+sub entries {
+  my $self = shift;
+  return @{$self->{entries}};
+}
+
+=head2 get
+
+=cut
+
+sub get {
+  my $self = shift;
+  my $arg = shift;
+  my @ret = grep { $_->path eq $arg } $self->entries;
+  return wantarray ? @ret : $ret[0];
+}
+
+=head2 add
+
+=cut
+
+sub add {
+  my $self = shift;
+  while (@_ > 0) {
+    $_ = shift;
+    if (ref eq 'Archive::Rgssad::Entry') {
+      push $self->{entries}, $_;
+    } else {
+      push $self->{entries}, Archive::Rgssad::Entry->new($_, shift);
+    }
+  }
+}
+
+=head2 remove
+
+=cut
+
+sub remove {
+  my $self = shift;
+  my $arg = shift;
+  if (ref($arg) eq 'Archive::Rgssad::Entry') {
+    $self->{entries} = [grep { $_->path ne $arg->path ||
+                               $_->data ne $arg->data } $self->entries];
+  } else {
+    $self->{entries} = [grep { $_->path ne $arg } $self->entries];
+  }
 }
 
 =head1 AUTHOR
@@ -198,21 +249,3 @@ See http://dev.perl.org/licenses/ for more information.
 =cut
 
 1; # End of Archive::Rgssad
-
-return 1 if caller;
-my $rgssad = Archive::Rgssad->new('../_/Game.rgss2a');
-my @entries = @{$rgssad->{entries}};
-print scalar @entries, "\n";
-for my $entry (@entries) {
-  my ($path, $data) = ('../_/' . $entry->path, $entry->data);
-  $path =~ s{\\}{/}g;
-  print $path, ' => ', length $data, "\n";
-  `mkdir -p "$path"`;
-  `rmdir "$path"`;
-  my $fh = IO::File->new($path, "w");
-  $fh->binmode(1);
-  $fh->write($data);
-  $fh->close;
-}
-$rgssad->save('../_/diff.rgssad');
-
