@@ -1,53 +1,60 @@
 package Archive::Rgssad::Keygen;
 
+use Exporter 'import';
+our @EXPORT_OK = qw(keygen);
+
 use 5.006;
 use strict;
 use warnings FATAL => 'all';
 
 =head1 NAME
 
-Archive::Rgssad::Keygen - The great new Archive::Rgssad::Keygen!
+Archive::Rgssad::Keygen - Internal utilities to generate magickeys.
 
 =head1 VERSION
 
-Version 0.01
+Version 0.1
 
 =cut
 
-our $VERSION = '0.01';
-
+our $VERSION = '0.1';
 
 =head1 SYNOPSIS
 
-Quick summary of what the module does.
+    use Archive::Rgssad::Keygen qw(keygen);
 
-Perhaps a little code snippet.
+    my $seed = 0xDEADCAFE;
+    my $key = keygen($seed);        # get next key
+    my @keys = keygen($seed, 10);   # get next 10 keys
 
-    use Archive::Rgssad::Keygen;
 
-    my $foo = Archive::Rgssad::Keygen->new();
-    ...
+=head1 DESCRIPTION
 
-=head1 EXPORT
+=over 4
 
-A list of functions that can be exported.  You can delete this section
-if you don't export anything, such as for a purely object-oriented module.
+=item keygen KEY
 
-=head1 SUBROUTINES/METHODS
+=item keygen KEY, NUM
 
-=head2 function1
-
-=cut
-
-sub function1 {
-}
-
-=head2 function2
+Uses KEY as seed, generates NUM keys, and stores the new seed back to KEY.
+If NUM is omitted, it generates 1 key, which is exactly KEY.
+In scalar context, returns the last keys generated.
 
 =cut
 
-sub function2 {
+sub keygen (\$;$) {
+  use integer;
+  my $key = shift;
+  my $num = shift || 1;
+  my @ret = ();
+  for (1 .. $num) {
+    push @ret, $$key;
+    $$key = ($$key * 7 + 3) & 0xFFFFFFFF;
+  }
+  return wantarray ? @ret : $ret[-1];
 }
+
+=back
 
 =head1 AUTHOR
 

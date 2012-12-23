@@ -5,18 +5,19 @@ use strict;
 use warnings FATAL => 'all';
 
 use Archive::Rgssad::Entry;
+use Archive::Rgssad::Keygen 'keygen';
 
 =head1 NAME
 
-Archive::Rgssad - Provide an interface to RGSS (ruby game scripting system) archive files.
+Archive::Rgssad - Provide an interface to rgssad and rgss2a archive files.
 
 =head1 VERSION
 
-Version 0.01
+Version 0.1
 
 =cut
 
-our $VERSION = '0.01';
+our $VERSION = '0.1';
 
 
 =head1 SYNOPSIS
@@ -38,18 +39,6 @@ if you don't export anything, such as for a purely object-oriented module.
 =head1 SUBROUTINES/METHODS
 
 =cut
-
-sub _next (\$;$) {
-  use integer;
-  my $key = shift;
-  my $n = shift || 1;
-  my @ret = ();
-  for (1 .. $n) {
-    push @ret, $$key;
-    $$key = ($$key * 7 + 3) & 0xFFFFFFFF;
-  }
-  return wantarray ? @ret : $ret[-1];
-}
 
 =head2 new
 
@@ -86,17 +75,17 @@ sub load {
     my ($buf, $len);
 
     $fh->read($buf, 4);
-    $len = unpack('V', $buf) ^ _next($key);
+    $len = unpack('V', $buf) ^ keygen($key);
 
     $fh->read($buf, $len);
-    $buf ^= pack('C*', map { $_ & 0xFF } _next($key, $len));
+    $buf ^= pack('C*', map { $_ & 0xFF } keygen($key, $len));
     $entry->path($buf);
 
     $fh->read($buf, 4);
-    $len = unpack('V', $buf) ^ _next($key);
+    $len = unpack('V', $buf) ^ keygen($key);
 
     $fh->read($buf, $len);
-    $buf ^= pack('V*', _next($_ = $key, ($len + 3) / 4));
+    $buf ^= pack('V*', keygen($_ = $key, ($len + 3) / 4));
     $entry->data(substr($buf, 0, $len));
 
     push @entries, $entry;
@@ -123,15 +112,15 @@ sub save {
     my ($buf, $len);
 
     $len = length $entry->path;
-    $fh->write(pack('V', $len ^ _next($key)), 4);
+    $fh->write(pack('V', $len ^ keygen($key)), 4);
 
-    $buf = $entry->path ^ pack('C*', map { $_ & 0xFF } _next($key, $len));
+    $buf = $entry->path ^ pack('C*', map { $_ & 0xFF } keygen($key, $len));
     $fh->write($buf, $len);
 
     $len = length $entry->data;
-    $fh->write(pack('V', $len ^ _next($key)), 4);
+    $fh->write(pack('V', $len ^ keygen($key)), 4);
 
-    $buf = $entry->data ^ pack('V*', _next($_ = $key, ($len + 3) / 4));
+    $buf = $entry->data ^ pack('V*', keygen($_ = $key, ($len + 3) / 4));
     $fh->write($buf, $len);
   }
 
