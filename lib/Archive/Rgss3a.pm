@@ -4,6 +4,12 @@ use 5.006;
 use strict;
 use warnings FATAL => 'all';
 
+use Archive::Rgssad;
+use Archive::Rgssad::Entry;
+use Archive::Rgssad::Keygen 'keygen';
+
+our @ISA = qw(Archive::Rgssad);
+
 =head1 NAME
 
 Archive::Rgss3a - Provide an interface to rgss3a archive files.
@@ -35,18 +41,77 @@ if you don't export anything, such as for a purely object-oriented module.
 
 =head1 SUBROUTINES/METHODS
 
-=head2 function1
+=head2 new
 
 =cut
 
-sub function1 {
+sub new {
+  my $class = shift;
+  my $self = {
+    magic   => "RGSSAD\x00\x03",
+    entries => []
+  };
+  bless $self, $class;
+  $self->load(shift) if @_;
+  return $self;
 }
 
-=head2 function2
+=head2 load
 
 =cut
 
-sub function2 {
+sub load {
+  my $self = shift;
+  my $file = shift;
+  my $fh = ref($file) eq '' ? IO::File->new($file, 'r') : $file;
+  $fh->binmode(1);
+
+  $fh->read($_, 8);
+  $fh->read($_, 4);
+  my $key = unpack('V');
+  {
+    use integer;
+    $key = ($key * 9 + 3) & 0xFFFFFFFF;
+  }
+
+  my @headers = ();
+  while (1) {
+    $fh->read($_, 16);
+    my @header = map { $_ ^ $key } unpack('V*');
+    last if $header[0] == 0;
+
+    $fh->read($_, $header[3]);
+    $_ ^= pack('V', $key) x (($header[3] + 3) / 4);
+    push @header, substr($_, 0, $header[3]);
+    push @headers, \@header;
+  }
+
+  my @entries = ();
+  for my $header (@headers) {
+    my ($off, $len, $key) = @$header;
+    my $path = $header->[-1];
+    my $data = '';
+    $fh->seek($off, 0);
+    $fh->read($data, $len);
+    $data ^= pack('V*', keygen($key, ($len + 3) / 4));
+    push @entries, Archive::Rgssad::Entry->new($path, substr($data, 0, $len));
+  }
+
+  $self->{entries} = \@entries;
+  $fh->close;
+}
+
+=head2 save
+
+=cut
+
+sub save {
+  my $self = shift;
+  my $file = shift;
+  my $fh = ref($file) eq '' ? IO::File->new($file, 'w') : $file;
+  $fh->binmode(1);
+
+  $fh->close;
 }
 
 =head1 AUTHOR
@@ -109,3 +174,14 @@ See L<http://dev.perl.org/licenses/> for more information.
 =cut
 
 1; # End of Archive::Rgss3a
+
+return 1 if caller;
+
+my $rgss3a = Archive::Rgss3a->new('../_build/Game.rgss3a');
+for my $entry ($rgss3a->entries) {
+  printf "%s\t\t%d\n", $entry->path, length $entry->data;
+  open FH, '>', '/tmp/tmp/' . $entry->path;
+  binmode FH;
+  print FH $entry->data;
+  close FH;
+}
