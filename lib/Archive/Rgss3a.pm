@@ -156,7 +156,7 @@ You can also look for information at:
 
 =item * GitHub
 
-L<https://github.com/watashi>
+L<https://github.com/watashi/perl-archive-rgssad>
 
 =back
 
