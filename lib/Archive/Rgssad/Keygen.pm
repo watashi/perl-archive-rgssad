@@ -11,10 +11,6 @@ use warnings FATAL => 'all';
 
 Archive::Rgssad::Keygen - Internal utilities to generate magickeys.
 
-=head1 VERSION
-
-Version 0.1
-
 =cut
 
 our $VERSION = '0.1';
@@ -32,9 +28,9 @@ our $VERSION = '0.1';
 
 =over 4
 
-=item keygen KEY
+=item keygen $key
 
-=item keygen KEY, NUM
+=item keygen $key, $num
 
 Uses KEY as seed, generates NUM keys, and stores the new seed back to KEY.
 If NUM is omitted, it generates 1 key, which is exactly KEY.
@@ -60,14 +56,6 @@ sub keygen (\$;$) {
 
 Zejun Wu, C<< <watashi at watashi.ws> >>
 
-=head1 BUGS
-
-Please report any bugs or feature requests to C<bug-archive-rgssad at rt.cpan.org>, or through
-the web interface at L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=Archive-Rgssad>.  I will be notified, and then you'll
-automatically be notified of progress on your bug as I make changes.
-
-
-
 
 =head1 SUPPORT
 
@@ -80,26 +68,11 @@ You can also look for information at:
 
 =over 4
 
-=item * RT: CPAN's request tracker (report bugs here)
+=item * GitHub
 
-L<http://rt.cpan.org/NoAuth/Bugs.html?Dist=Archive-Rgssad>
-
-=item * AnnoCPAN: Annotated CPAN documentation
-
-L<http://annocpan.org/dist/Archive-Rgssad>
-
-=item * CPAN Ratings
-
-L<http://cpanratings.perl.org/d/Archive-Rgssad>
-
-=item * Search CPAN
-
-L<http://search.cpan.org/dist/Archive-Rgssad/>
+L<https://github.com/watashi>
 
 =back
-
-
-=head1 ACKNOWLEDGEMENTS
 
 
 =head1 LICENSE AND COPYRIGHT

@@ -25,19 +25,10 @@ our $VERSION = '0.1';
 
 =head1 SYNOPSIS
 
-Quick summary of what the module does.
-
-Perhaps a little code snippet.
-
     use Archive::Rgss3a;
 
     my $foo = Archive::Rgss3a->new();
     ...
-
-=head1 EXPORT
-
-A list of functions that can be exported.  You can delete this section
-if you don't export anything, such as for a purely object-oriented module.
 
 =head1 SUBROUTINES/METHODS
 
@@ -152,15 +143,6 @@ sub save {
 
 Zejun Wu, C<< <watashi at watashi.ws> >>
 
-=head1 BUGS
-
-Please report any bugs or feature requests to C<bug-archive-rgssad at rt.cpan.org>, or through
-the web interface at L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=Archive-Rgssad>.  I will be notified, and then you'll
-automatically be notified of progress on your bug as I make changes.
-
-
-
-
 =head1 SUPPORT
 
 You can find documentation for this module with the perldoc command.
@@ -172,27 +154,16 @@ You can also look for information at:
 
 =over 4
 
-=item * RT: CPAN's request tracker (report bugs here)
+=item * GitHub
 
-L<http://rt.cpan.org/NoAuth/Bugs.html?Dist=Archive-Rgssad>
-
-=item * AnnoCPAN: Annotated CPAN documentation
-
-L<http://annocpan.org/dist/Archive-Rgssad>
-
-=item * CPAN Ratings
-
-L<http://cpanratings.perl.org/d/Archive-Rgssad>
-
-=item * Search CPAN
-
-L<http://search.cpan.org/dist/Archive-Rgssad/>
+L<https://github.com/watashi>
 
 =back
 
 
 =head1 ACKNOWLEDGEMENTS
 
+A special thanks to fux2, who shared his discovery about the rgss3a format and published the decryption algorithm.
 
 =head1 LICENSE AND COPYRIGHT
 

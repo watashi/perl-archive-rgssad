@@ -8,10 +8,6 @@ use warnings FATAL => 'all';
 
 Archive::Rgssad::Entry - The great new Archive::Rgssad::Entry!
 
-=head1 VERSION
-
-Version 0.1
-
 =cut
 
 our $VERSION = '0.1';
@@ -19,23 +15,33 @@ our $VERSION = '0.1';
 
 =head1 SYNOPSIS
 
-Quick summary of what the module does.
-
-Perhaps a little code snippet.
-
     use Archive::Rgssad::Entry;
 
-    my $foo = Archive::Rgssad::Entry->new();
-    ...
+    # create a new entry
+    my $entry = Archive::Rgssad::Entry->new($path, $data);
 
-=head1 EXPORT
+    # update path and data
+    $entry->path($new_path);
+    $entry->data($new_data);
 
-A list of functions that can be exported.  You can delete this section
-if you don't export anything, such as for a purely object-oriented module.
+    # save the entry to file
+    open FH, '>', $entry->path;
+    print FH $entry->data;
+    close FH;
 
-=head1 SUBROUTINES/METHODS
+=head1 DESCRIPTION
 
-=head2 new
+Each entry in rgssad archive is simply a (path, data) pair.
+
+=head2 Constructor
+
+=over 4
+
+=item new([$path [, $data]])
+
+Create a new entry.
+
+=back
 
 =cut
 
@@ -49,7 +55,13 @@ sub new {
   return $self;
 }
 
-=head2 path
+=head2 Accessors
+
+=over 4
+
+=item path([$new_path])
+
+Return the path of the entry. If $new_path is given, set the path to $new_path and return it.
 
 =cut
 
@@ -59,7 +71,9 @@ sub path {
   return $self->{path};
 }
 
-=head2 data
+=item data([$new_data])
+
+Return the data of the entry. If $new_data is given, set the data to $new_data and return it.
 
 =cut
 
@@ -69,38 +83,11 @@ sub data {
   return $self->{data};
 }
 
-=head2 pack
-
-=cut
-
-sub pack {
-  my $self = shift;
-  pack '(V/a)*', $self->path, $self->data;
-}
-
-=head2 unpack
-
-=cut
-
-sub unpack {
-  my $self = shift;
-  my ($path, $data) = unpack '(V/a)*', shift;
-  $self->path($path);
-  $self->data($data);
-  return $self;
-}
+=back
 
 =head1 AUTHOR
 
 Zejun Wu, C<< <watashi at watashi.ws> >>
-
-=head1 BUGS
-
-Please report any bugs or feature requests to C<bug-archive-rgssad at rt.cpan.org>, or through
-the web interface at L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=Archive-Rgssad>.  I will be notified, and then you'll
-automatically be notified of progress on your bug as I make changes.
-
-
 
 
 =head1 SUPPORT
@@ -114,26 +101,11 @@ You can also look for information at:
 
 =over 4
 
-=item * RT: CPAN's request tracker (report bugs here)
+=item * GitHub
 
-L<http://rt.cpan.org/NoAuth/Bugs.html?Dist=Archive-Rgssad>
-
-=item * AnnoCPAN: Annotated CPAN documentation
-
-L<http://annocpan.org/dist/Archive-Rgssad>
-
-=item * CPAN Ratings
-
-L<http://cpanratings.perl.org/d/Archive-Rgssad>
-
-=item * Search CPAN
-
-L<http://search.cpan.org/dist/Archive-Rgssad/>
+L<https://github.com/watashi>
 
 =back
-
-
-=head1 ACKNOWLEDGEMENTS
 
 
 =head1 LICENSE AND COPYRIGHT
