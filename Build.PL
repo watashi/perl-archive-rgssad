@@ -5,7 +5,7 @@ use Module::Build;
 
 my $builder = Module::Build->new(
     module_name         => 'Archive::Rgssad',
-    license             => 'Perl_5',
+    license             => 'perl',
     dist_author         => q{Zejun Wu <watashi@watashi.ws>},
     dist_abstract       =>
       'Provide an interface to RGSS (ruby game scripting system) archive files.',
@@ -13,13 +13,17 @@ my $builder = Module::Build->new(
     release_status      => 'stable',
     script_files        => qw{script/rgssad.pl},
     configure_requires  => {
-        'Module::Build' => 0,
+      'Module::Build'   => 0,
     },
     build_requires      => {
-        'Test::More'    => 0,
+      'Test::More'      => 0,
     },
     requires => {
-        'perl' => 5.006,
+      'perl' => 5.006,
+      'File::Basename'  => 0,
+      'File::Path'      => 0,
+      'Getopt::Long'    => 0,
+      'IO::File'        => 0
     },
     add_to_cleanup      => [ 'Archive-Rgssad-*' ],
     create_makefile_pl  => 'traditional',
