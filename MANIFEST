@@ -11,9 +11,11 @@ script/rgssad.pl
 t/00-load.t
 t/boilerplate.t
 t/Entry.t
+t/Keygen.t
 t/manifest.t
 t/pod-coverage.t
 t/pod.t
+t/Rgss3a.t
 t/Rgssad.t
 t/sample/Data/Scripts.rvdata
 t/sample/Dummy
