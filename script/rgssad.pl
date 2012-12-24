@@ -3,6 +3,7 @@
 use strict;
 use warnings;
 use Archive::Rgssad;
+use Archive::Rgss3a;
 use File::Basename;
 use File::Path 'mkpath';
 use Getopt::Long;
