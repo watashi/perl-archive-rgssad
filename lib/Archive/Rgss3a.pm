@@ -111,6 +111,40 @@ sub save {
   my $fh = ref($file) eq '' ? IO::File->new($file, 'w') : $file;
   $fh->binmode(1);
 
+  $fh->write($self->{magic}, 8);
+  my $key = 0;
+  $fh->write(pack('V', $key), 4);
+  {
+    use integer;
+    $key = ($key * 9 + 3) & 0xFFFFFFFF;
+  }
+
+  my $off = 12;
+  for my $entry ($self->entries) {
+    $off += 16 + length $entry->path;
+  }
+  $off += 16;
+
+  for my $entry ($self->entries) {
+    my $len = length $entry->path;
+    my $path = $entry->path;
+    $path ^= pack('V', $key) x (($len + 3) / 4);
+    $path = substr($path, 0, $len);
+    $fh->write(pack('V*', map { $_ ^ $key } ($off, length $entry->data, 0, $len)), 16);
+    $fh->write($path, $len);
+    $off += length $entry->data;
+  }
+  $fh->write(pack('V*', map { $_ ^ $key } (0, 0, 0, 0)), 16);
+
+  for my $entry ($self->entries) {
+    my $key = 0;
+    my $len = length $entry->data;
+    my $data = $entry->data;
+    $data ^= pack('V*', keygen($key, ($len + 3) / 4));
+    $data = substr($data, 0, $len);
+    $fh->write($data, $len);
+  }
+
   $fh->close;
 }
 
@@ -174,14 +208,3 @@ See L<http://dev.perl.org/licenses/> for more information.
 =cut
 
 1; # End of Archive::Rgss3a
-
-return 1 if caller;
-
-my $rgss3a = Archive::Rgss3a->new('../_build/Game.rgss3a');
-for my $entry ($rgss3a->entries) {
-  printf "%s\t\t%d\n", $entry->path, length $entry->data;
-  open FH, '>', '/tmp/tmp/' . $entry->path;
-  binmode FH;
-  print FH $entry->data;
-  close FH;
-}
