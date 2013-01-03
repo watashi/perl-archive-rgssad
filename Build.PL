@@ -18,6 +18,9 @@ my $builder = Module::Build->new(
     build_requires      => {
       'Test::More'      => 0,
     },
+    test_requires       => {
+      'IO::Scalar'      => 0,
+    },
     requires => {
       'perl' => 5.006,
       'File::Basename'  => 0,
