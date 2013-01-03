@@ -1,6 +1,6 @@
 package Archive::Rgss3a;
 
-use 5.006;
+use 5.014;
 use strict;
 use warnings FATAL => 'all';
 
