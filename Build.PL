@@ -17,9 +17,10 @@ my $builder = Module::Build->new(
     },
     build_requires      => {
       'Test::More'      => 0,
+      'IO::Scalar'      => 0,
     },
     requires => {
-      'perl' => 5.006,
+      'perl'            => 5.006,
       'File::Basename'  => 0,
       'File::Path'      => 0,
       'Getopt::Long'    => 0,

@@ -92,7 +92,8 @@ sub load {
     $len = unpack('V', $buf) ^ keygen($key);
 
     $fh->read($buf, $len);
-    $buf ^= pack('V*', keygen($_ = $key, ($len + 3) / 4));
+    $_ = $key;
+    $buf ^= pack('V*', keygen($_, ($len + 3) / 4));
     $entry->data(substr($buf, 0, $len));
 
     push @entries, $entry;
@@ -132,7 +133,8 @@ sub save {
     $len = length $entry->data;
     $fh->write(pack('V', $len ^ keygen($key)), 4);
 
-    $buf = $entry->data ^ pack('V*', keygen($_ = $key, ($len + 3) / 4));
+    $_ = $key;
+    $buf = $entry->data ^ pack('V*', keygen($_, ($len + 3) / 4));
     $fh->write($buf, $len);
   }
 
@@ -181,9 +183,9 @@ sub add {
   while (@_ > 0) {
     $_ = shift;
     if (ref eq 'Archive::Rgssad::Entry') {
-      push $self->{entries}, $_;
+      push @{$self->{entries}}, $_;
     } else {
-      push $self->{entries}, Archive::Rgssad::Entry->new($_, shift);
+      push @{$self->{entries}}, Archive::Rgssad::Entry->new($_, shift);
     }
   }
 }
