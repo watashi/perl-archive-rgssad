@@ -147,9 +147,9 @@ sub add {
   while (@_ > 0) {
     $_ = shift;
     if (ref eq 'Archive::Rgssad::Entry') {
-      push $self->{entries}, $_;
+      push @{$self->{entries}}, $_;
     } else {
-      push $self->{entries}, Archive::Rgssad::Entry->new($_, shift);
+      push @{$self->{entries}}, Archive::Rgssad::Entry->new($_, shift);
     }
   }
 }
