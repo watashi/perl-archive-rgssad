@@ -88,3 +88,90 @@ for my $entry ($rgssad->entries) {
     close FH;
   }
 }
+
+__END__
+
+=head1 NAME
+
+rgssad - extract files from RGSS archive
+
+=head1 SYNOPSIS
+
+B<rgssad> [B<-h>] [B<-l>] [B<-d> I<exdir>] I<archive> [I<file(s)> ...]
+
+=head1 OPTIONS
+
+=over 4
+
+=item B<-h>, B<--help>
+
+Print usage and exit.
+
+=item B<-l>, B<--list>
+
+Do not extract the entries to files, just list the paths of entries.
+
+=item B<-d> I<extdir>, B<--dest>=I<extdir>
+
+Extract files to the specified directory.
+
+=item B<-t> I<version>, B<--type>=I<version>
+
+Use I<type> to determine archive type or version. If version is 1, force
+the script to treat archive as .rgssad or .rgss2a (rgssad v1). If version
+is 3, force the script to treat archive as .rgss3a (rgssad v3). Otherwise,
+the script will automatically detect archive type according to the version
+number in archive header.
+
+=back
+
+=head1 EXAMPLES
+
+To list all entries of I<Game.rgssad>, try
+
+    rgssad -l Game.rgssad
+
+To extract all entries from I<Game.rgss2a> to directory I<resources>, try
+
+    rgssad Game.rgss2a -d resources
+
+To extract I<Data\Scripts.rvdata2> from I<Game.rgss3a> to current directory, try
+
+    rgssad Game.rgss3a 'Data\Scripts.rvdata2'
+
+=head1 SEE ALSO
+
+Archive::Rgssad and Archive::Rgss3a
+
+=head1 AUTHOR
+
+Zejun Wu, C<< <watashi at watashi.ws> >>
+
+=head1 SUPPORT
+
+You can find documentation for this script with the man command.
+
+    man rgssad
+
+
+You can also look for information at:
+
+=over 4
+
+=item * GitHub
+
+L<https://github.com/watashi/perl-archive-rgssad>
+
+=back
+
+=head1 LICENSE AND COPYRIGHT
+
+Copyright 2012 Zejun Wu.
+
+This program is free software; you can redistribute it and/or modify it
+under the terms of either: the GNU General Public License as published
+by the Free Software Foundation; or the Artistic License.
+
+See L<http://dev.perl.org/licenses/> for more information.
+
+=cut
