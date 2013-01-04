@@ -1,4 +1,4 @@
-use 5.014;
+use 5.006;
 use strict;
 use warnings FATAL => 'all';
 use Module::Build;
