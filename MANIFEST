@@ -11,7 +11,7 @@ META.json
 META.yml
 README
 README.md
-script/rgssad.pl
+script/rgssad
 t/00-load.t
 t/boilerplate.t
 t/Entry.t

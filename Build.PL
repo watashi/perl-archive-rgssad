@@ -11,7 +11,7 @@ my $builder = Module::Build->new(
       'Provide an interface to RGSS (ruby game scripting system) archive files.',
     dist_version_from   => 'lib/Archive/Rgssad.pm',
     release_status      => 'stable',
-    script_files        => qw{script/rgssad.pl},
+    script_files        => qw{script/rgssad},
     configure_requires  => {
       'Module::Build'   => 0,
     },

@@ -7,7 +7,7 @@ WriteMakefile
   'INSTALLDIRS' => 'site',
   'NAME' => 'Archive::Rgssad',
   'EXE_FILES' => [
-                   'script/rgssad.pl'
+                   'script/rgssad'
                  ],
   'VERSION_FROM' => 'lib/Archive/Rgssad.pm',
   'PREREQ_PM' => {
