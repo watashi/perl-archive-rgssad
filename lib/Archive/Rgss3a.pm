@@ -16,11 +16,11 @@ Archive::Rgss3a - Provide an interface to rgss3a archive files.
 
 =head1 VERSION
 
-Version 0.1.1
+Version 0.2.0
 
 =cut
 
-our $VERSION = '0.1.1';
+our $VERSION = '0.2.0';
 
 
 =head1 SYNOPSIS
