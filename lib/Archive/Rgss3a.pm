@@ -27,12 +27,23 @@ our $VERSION = '0.1';
 
     use Archive::Rgss3a;
 
-    my $foo = Archive::Rgss3a->new();
-    ...
+    my $rgss3a = Archive::Rgss3a->new('Game.rgss3a');
+    for my $entry ($rgss3a->entries) {
+      ...
+    }
 
 =head1 SUBROUTINES/METHODS
 
-=head2 new
+=head2 Constructor
+
+=over 4
+
+=item new([$io])
+
+Create an empty rgss3a archive. If an additional argument is passed, call
+C<load> to load the entries from it.
+
+=back
 
 =cut
 
@@ -47,7 +58,14 @@ sub new {
   return $self;
 }
 
-=head2 load
+=head2 Load and Save
+
+=over 4
+
+=item load($io)
+
+Load entries from C<$io>, which should be either a readable instance of
+IO::Handle or its subclasses or a valid filepath.
 
 =cut
 
@@ -92,7 +110,12 @@ sub load {
   $fh->close;
 }
 
-=head2 save
+=item save($io)
+
+Save the entries to C<$io>, which should be either a writable instance of
+IO::Handle or its subclasses or a valid filepath.
+
+=back
 
 =cut
 
@@ -138,6 +161,12 @@ sub save {
 
   $fh->close;
 }
+
+=head2 Manipulate Entries
+
+See C<Archive::Rgssad>.
+
+=cut
 
 =head1 AUTHOR
 

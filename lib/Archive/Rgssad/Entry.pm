@@ -6,12 +6,11 @@ use warnings FATAL => 'all';
 
 =head1 NAME
 
-Archive::Rgssad::Entry - The great new Archive::Rgssad::Entry!
+Archive::Rgssad::Entry - A (path, data) pair in rgssad archive.
 
 =cut
 
 our $VERSION = '0.1';
-
 
 =head1 SYNOPSIS
 
