@@ -17,7 +17,7 @@ my $builder = Module::Build->new(
     },
     build_requires      => {
       'Test::More'      => 0,
-      'IO::Scalar'      => 0,
+      'IO::String'      => 0,
     },
     requires => {
       'perl'            => 5.006,

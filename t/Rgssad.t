@@ -3,7 +3,7 @@ use warnings;
 use Archive::Rgssad;
 use Archive::Rgssad::Entry;
 use Digest::MD5 'md5_hex';
-use IO::Scalar;
+use IO::String;
 use List::Util 'first';
 use Test::More tests => 8;
 
@@ -27,12 +27,12 @@ while (my $path = <DATA>) {
 
 my $buf;
 
-my $out = IO::Scalar->new(\$buf);
+my $out = IO::String->new(\$buf);
 $rgssad->save($out);
 my @entries = $rgssad->entries;
 is(md5_hex($buf), '4c77ecfb07a93a54802bc7f86822b868', 'save');
 
-my $in = IO::Scalar->new(\$buf);
+my $in = IO::String->new(\$buf);
 $rgssad->load($in);
 my @entries2 = $rgssad->entries;
 cmp_ok(@entries2, '==', @entries, 'number of entries');
