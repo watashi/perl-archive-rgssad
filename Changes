@@ -5,3 +5,6 @@ Revision history for Archive-Rgssad
 
 0.1     Mon Dec 24 18:43:45 CST 2012
         Add rgss3a support.
+
+0.1.1   Fri Jan  4 19:44:33 CST 2013
+        Support perl 5.10 and complete doc.

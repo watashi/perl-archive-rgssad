@@ -8,6 +8,8 @@ use File::Basename;
 use File::Path 'mkpath';
 use Getopt::Long;
 
+our $VERSION = '0.1.1';
+
 my $help = 0;
 my $list = 0;
 my $dest = '.';
