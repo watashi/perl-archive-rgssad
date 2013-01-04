@@ -3,7 +3,7 @@ package Archive::Rgssad::Keygen;
 use Exporter 'import';
 our @EXPORT_OK = qw(keygen);
 
-use 5.006;
+use 5.010;
 use strict;
 use warnings FATAL => 'all';
 

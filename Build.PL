@@ -1,4 +1,4 @@
-use 5.006;
+use 5.010;
 use strict;
 use warnings FATAL => 'all';
 use Module::Build;
@@ -20,7 +20,7 @@ my $builder = Module::Build->new(
       'IO::String'      => 0,
     },
     requires => {
-      'perl'            => 5.006,
+      'perl'            => 5.010,
       'File::Basename'  => 0,
       'File::Path'      => 0,
       'Getopt::Long'    => 0,
