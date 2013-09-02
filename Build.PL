@@ -28,6 +28,11 @@ my $builder = Module::Build->new(
     },
     add_to_cleanup      => [ 'Archive-Rgssad-*' ],
     create_makefile_pl  => 'traditional',
+    meta_merge          => {
+        resources => {
+            repository => 'https://github.com/watashi/perl-archive-rgssad',
+        },
+    },
 );
 
 $builder->create_build_script();
